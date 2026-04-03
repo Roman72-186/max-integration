@@ -77,13 +77,14 @@ class TelegramApp {
     // -----------------------------------------------
     requestContact(callback) {
         if (this.isMAX && typeof this.tg?.requestContact === 'function') {
-            // Подписываемся на ответ один раз
+            // Событие по документации MAX: WebAppRequestPhone
+            // Данные: { phone: string }
             const handler = (data) => {
-                this.tg.offEvent('contactRequested', handler);
-                const phone = data?.contact?.phone_number || null;
+                this.tg.offEvent('WebAppRequestPhone', handler);
+                const phone = data?.phone || null;
                 callback(phone);
             };
-            this.tg.onEvent('contactRequested', handler);
+            this.tg.onEvent('WebAppRequestPhone', handler);
             this.tg.requestContact();
         } else {
             // Telegram или mock — нативного диалога нет
