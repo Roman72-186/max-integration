@@ -923,3 +923,297 @@ body {
     border-top: 1px solid var(--border-color);
     margin: 12px 0;
 }
+
+/* ===================================
+   PRODUCT CARD RATING
+   =================================== */
+
+.product-card-rating {
+    font-size: 11px;
+    color: var(--text-light);
+    margin-top: 4px;
+}
+
+.product-detail-rating {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+/* ===================================
+   CART ITEM CONTROLS (app.js renders quantity-btn / quantity)
+   =================================== */
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: var(--bg-light);
+    border-radius: var(--radius-sm);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.quantity-btn:active {
+    transform: scale(0.9);
+    background: var(--primary-light);
+}
+
+.quantity {
+    font-size: 15px;
+    font-weight: 700;
+    min-width: 24px;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.cart-item-total {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 60px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.remove-item-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 16px;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.remove-item-btn:active {
+    color: var(--error-color);
+    background: #ffebee;
+}
+
+/* ===================================
+   EMPTY CART STATE
+   =================================== */
+
+.empty-cart {
+    text-align: center;
+    padding: 48px 20px;
+}
+
+.empty-cart-icon {
+    font-size: 56px;
+    margin-bottom: 14px;
+    opacity: 0.4;
+}
+
+.empty-cart h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.empty-cart p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* ===================================
+   CHECKOUT FORM SECTIONS (app.js uses .form-section)
+   =================================== */
+
+.form-section {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 12px;
+}
+
+.form-section h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+}
+
+/* ===================================
+   CHECKOUT SUMMARY
+   =================================== */
+
+.checkout-summary {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 12px;
+}
+
+.checkout-summary h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.checkout-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.checkout-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.checkout-item-name {
+    flex: 1;
+    color: var(--text-primary);
+}
+
+.checkout-item-qty {
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.checkout-item-price {
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.checkout-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 2px solid var(--border-color);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ===================================
+   SUCCESS ORDER DETAILS
+   =================================== */
+
+.success-order-id {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    font-family: monospace;
+}
+
+.success-order-items {
+    margin-bottom: 16px;
+}
+
+.success-order-items h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.success-order-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.success-order-item:last-child {
+    border-bottom: none;
+}
+
+.item-name {
+    flex: 1;
+    color: var(--text-primary);
+}
+
+.item-qty {
+    color: var(--text-secondary);
+}
+
+.item-price {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.success-order-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-primary);
+    padding-top: 12px;
+    border-top: 2px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.success-delivery-info {
+    text-align: left;
+    margin-top: 16px;
+}
+
+.success-delivery-info h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.success-delivery-info p {
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+/* ===================================
+   EMPTY ORDERS STATE
+   =================================== */
+
+.empty-orders {
+    text-align: center;
+    padding: 48px 20px;
+}
+
+.empty-orders-icon {
+    font-size: 56px;
+    margin-bottom: 14px;
+    opacity: 0.4;
+}
+
+.empty-orders h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.empty-orders p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
+}

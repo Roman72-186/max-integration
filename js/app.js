@@ -16,11 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function init() {
-    // Инициализация Telegram
-    if (typeof telegramApp !== 'undefined') {
-        telegramApp.init();
-    }
-
     // Настройка хедера
     setupHeader();
 
@@ -30,9 +25,6 @@ function init() {
 
     // Обновить бейдж корзины
     updateCartBadge();
-
-    // Инициализация маски телефона
-    initPhoneMask();
 
     // Скрыть лоадер и показать приложение
     setTimeout(() => {
@@ -392,6 +384,9 @@ function renderCheckout() {
             }
         }
     }
+
+    // Инициализация маски телефона — вызывается здесь, т.к. форма уже отрендерена
+    initPhoneMask();
 }
 
 // ===================================

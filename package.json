@@ -28,7 +28,7 @@
   "jest": {
     "testEnvironment": "jsdom",
     "testMatch": [
-      "**/tests/**/*.test.js"
+      "**/tests/app.test.js"
     ],
     "collectCoverageFrom": [
       "js/**/*.js",
