@@ -386,15 +386,18 @@ describe('App', () => {
             return '+' + (digits.startsWith('8') ? '7' + digits.slice(1) : digits);
         };
 
-        const sendToLeadtex = async (orderData) => {
+        const sendToLeadtex = async (orderData, startParam = null) => {
+            const contactBy = startParam ? 'id' : 'phone';
+            const contactSearch = startParam ? startParam : normalizePhone(orderData.customer.phone);
+
             const response = await fetch(CONFIG.WEBHOOK_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    contact_by: 'phone',
-                    search: normalizePhone(orderData.customer.phone),
+                    contact_by: contactBy,
+                    search: contactSearch,
                     variables: {
                         order_id: orderData.order.orderId,
                         order_total: orderData.order.total.toString(),
@@ -450,10 +453,20 @@ describe('App', () => {
             expect(result).toBe(false);
         });
 
-        test('должна искать контакт по нормализованному телефону', async () => {
+        test('если есть start_param — ищет по LeadTeX id', async () => {
             global.fetch.mockResolvedValueOnce({ ok: true });
 
-            await sendToLeadtex(testOrderData);
+            await sendToLeadtex(testOrderData, '55755822');
+
+            const callBody = JSON.parse(fetch.mock.calls[0][1].body);
+            expect(callBody.contact_by).toBe('id');
+            expect(callBody.search).toBe('55755822');
+        });
+
+        test('без start_param — ищет по телефону (fallback)', async () => {
+            global.fetch.mockResolvedValueOnce({ ok: true });
+
+            await sendToLeadtex(testOrderData, null);
 
             const callBody = JSON.parse(fetch.mock.calls[0][1].body);
             expect(callBody.contact_by).toBe('phone');

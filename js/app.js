@@ -490,28 +490,31 @@ function normalizePhone(phone) {
 }
 
 async function sendOrderToServer(order) {
-    // Надежное получение telegramId с fallback на localStorage и моковые данные
-    let telegramId = localStorage.getItem('telegram_id');
+    // Получаем LeadTeX internal ID из startapp параметра (передаётся ботом через ссылку)
+    const startParam = window.WebApp?.initDataUnsafe?.start_param
+                    || window.Telegram?.WebApp?.initDataUnsafe?.start_param
+                    || null;
 
-    if (!telegramId && window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-        telegramId = window.Telegram.WebApp.initDataUnsafe.user.id.toString();
-        localStorage.setItem('telegram_id', telegramId);
-    }
+    // Получаем telegram_id для переменных
+    let telegramId = localStorage.getItem('telegram_id')
+                  || window.WebApp?.initDataUnsafe?.user?.id?.toString()
+                  || window.Telegram?.WebApp?.initDataUnsafe?.user?.id?.toString()
+                  || CONFIG.MOCK_USER.id.toString();
 
-    if (!telegramId) {
-        console.warn('Telegram ID не найден. Используется моковый пользователь.');
-        telegramId = CONFIG.MOCK_USER.id.toString(); // Используем мок, если ID все еще нет
-    }
+    // Выбор стратегии поиска контакта:
+    // 1. Если бот передал LeadTeX ID через startapp — ищем по внутреннему id (надёжно)
+    // 2. Иначе — fallback на телефон из формы
+    const contactBy = startParam ? 'id' : 'phone';
+    const contactSearch = startParam ? startParam : normalizePhone(order.customer.phone);
 
     console.log('📤 Отправка заказа в LEADTEX');
-    console.log('🆔 Telegram ID (из localStorage):', localStorage.getItem('telegram_id'));
-    console.log('🆔 Telegram ID (из Telegram WebApp):', window.Telegram?.WebApp?.initDataUnsafe?.user?.id?.toString());
-    console.log('🆔 Используемый Telegram ID:', telegramId);
+    console.log('🔗 start_param (LeadTeX ID):', startParam);
+    console.log('🔍 contact_by:', contactBy, '| search:', contactSearch);
 
-    // Подготовка данных для LEADTEX в соответствии с документацией
+    // Подготовка данных для LEADTEX
     const leadtexPayload = {
-        contact_by: 'phone',
-        search: normalizePhone(order.customer.phone),
+        contact_by: contactBy,
+        search: contactSearch,
         variables: {
             order_id: order.id,
             order_total: order.total.toString(),
