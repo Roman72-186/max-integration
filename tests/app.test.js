@@ -393,8 +393,8 @@ describe('App', () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    contact_by: 'phone',
-                    search: normalizePhone(orderData.customer.phone),
+                    contact_by: 'telegram_id',
+                    search: orderData.telegram.userId.toString(),
                     variables: {
                         order_id: orderData.order.orderId,
                         order_total: orderData.order.total.toString(),
@@ -450,14 +450,14 @@ describe('App', () => {
             expect(result).toBe(false);
         });
 
-        test('должна искать контакт по нормализованному телефону', async () => {
+        test('должна искать контакт по MAX user ID (telegram_id)', async () => {
             global.fetch.mockResolvedValueOnce({ ok: true });
 
             await sendToLeadtex(testOrderData);
 
             const callBody = JSON.parse(fetch.mock.calls[0][1].body);
-            expect(callBody.contact_by).toBe('phone');
-            expect(callBody.search).toBe('+79991234567');
+            expect(callBody.contact_by).toBe('telegram_id');
+            expect(callBody.search).toBe('123456789');
         });
 
         test('должна включать telegram_id в variables', async () => {
